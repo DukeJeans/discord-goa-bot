@@ -235,8 +235,8 @@ client.on('ready', () => { //G'huun Boot Sequence
     debugChannel = client.channels.find(ch => ch.name === 'ghuun-debug');
     wellMet = new Discord.Attachment('WELLMET.png')
     debugChannel.send("Wellmet.png loaded...");
-    fagVideo = new Discord.Attachment('Fag.mp4')
-    debugChannel.send("Fag.mp4 loaded...");
+    fagVideo = new Discord.Attachment('video.mp4')
+    debugChannel.send("video.mp4 loaded...");
     turtleVideo = new Discord.Attachment('turtle.mp4')
     debugChannel.send("turtle.mp4 loaded...");
     khalid = new Discord.Attachment('khalid.gif')
