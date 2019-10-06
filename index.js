@@ -1,4 +1,5 @@
 const Discord = require('discord.js')
+const fs = require('fs')
 const client = new Discord.Client()
 
 var wellMet
@@ -15,9 +16,14 @@ var multiplayerChannel
 var hook
 var yurlqiCounter
 var turtleVideo
-var GhuunVersion = 1.8
+var GhuunVersion = 1.9
+var token
 
-token = 'NTUxMTQ5OTk3ODM2NzMwMzc0.XUDiLA.tQEtYMsNojFTCa7FvHtIOaCaV2I';
+fs.readfile('token.txt', (err, data) => {
+    if (err) throw err;
+
+    token = data.toString();
+})
 
 client.on("guildMemberAdd", member => {
     let guild = member.guild;
