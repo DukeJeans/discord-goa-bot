@@ -1,0 +1,23 @@
+{
+  "name": "discord-goa-bot",
+  "version": "1.0.0",
+  "description": "Discord server bot for Guardians of Azeroth discord server under the guise of *G'huun, the Omnipotent*.",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DukeJeans/guardians-discord-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DukeJeans/guardians-discord-bot/issues"
+  },
+  "homepage": "https://github.com/DukeJeans/guardians-discord-bot#readme"
+}

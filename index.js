@@ -1,5 +1,4 @@
 const Discord = require('discord.js')
-const fs = require('fs')
 const client = new Discord.Client()
 
 var wellMet
@@ -10,41 +9,33 @@ var ghuun3
 var ghuun4
 var ghuun5
 var generalChannel
-var debugChannel
 var khalid
 var multiplayerChannel
 var hook
 var yurlqiCounter
 var turtleVideo
-var GhuunVersion = 1.9
-var token
-
-fs.readfile('token.txt', (err, data) => {
-    if (err) throw err;
-
-    token = data.toString();
-})
+var GhuunVersion = 2.0
 
 client.on("guildMemberAdd", member => {
     guild = member.guild;
 
-    debugChannel.send("Greeting new user: "+member.displayName +" Number Generated: " + randomNumber);
+    console.log("Greeting new user: "+member.displayName +" Number Generated: " + randomNumber);
 
     var randomNumber = Math.random()*4;
     if(randomNumber < 1){
-        generalChannel.send(`<:tortle:604685683285819402> A new turtle, ${member.user}, has made it to the Discord! <:tortle:604685683285819402>`).catch(console.error);
+        generalChannel.send(`<:tortle:604685683285819402> A new turtle, ${member.user}, has made it to the Discord! <:tortle:604685683285819402>`)
         generalChannel.send(turtleVideo);
     }
     else if(randomNumber < 2){
-        generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`).catch(console.error);
+        generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
         generalChannel.send(wellMet);
     }
     else if(randomNumber < 3){
-        generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq. Another one :point_up: has made it to the Discord.`).catch(console.error);
+        generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq. Another one :point_up: has made it to the Discord.`)
         generalChannel.send(khalid);
     }
     else {
-        generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`).catch(console.error);
+        generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
         generalChannel.send(fagVideo);
     }
 
@@ -57,7 +48,7 @@ client.on("guildMemberAdd", member => {
   });
 
 client.on('guildMemberRemove',(member) => {
-    generalChannel.send(`*consumes the soul of ${member.displayName}*`).catch(console.error);
+    generalChannel.send(`*consumes the soul of ${member.displayName}*`)
 
     if(member.displayName == "Yurlqi"){
         yurlqiCounter--;
@@ -98,8 +89,8 @@ function interpretCommand(message){
     var mainCommand = commandPieces[0]
     var arguments = commandPieces.slice(1)
 
-    debugChannel.send("Command received: " + mainCommand)
-    debugChannel.send("Arguments: " + arguments)
+    console.log("Command received: " + mainCommand)
+    console.log("Arguments: " + arguments)
 
     if (mainCommand == "ping") {
         helpCommand(message)
@@ -136,11 +127,11 @@ function emojiCommand (message){
 }
 
 function testPhraseCommand(message) {
-    debugChannel.send("has consumed the soul of "+ message.member.displayName);
+    console.log("has consumed the soul of "+ message.member.displayName);
 }
 
 function multiplayerHelp(message) {
-    debugChannel.send(message.member.displayName + " has used g!mphelp");
+    console.log(message.member.displayName + " has used g!mphelp");
     multiplayerChannel.send("Use `g!multiplayer` to join the @Multiplayer role for pings related to multiplayer games.")
     multiplayerChannel.send("Use `g!mplobby` create a multiplayer game and have it pinned to the channel. Please use this format: `g!mplobby (DAY) (dd/mm) (TIME in GMT)`.")
     multiplayerChannel.fetchMessages({ limit: 1 })
@@ -150,17 +141,17 @@ function multiplayerCommand (message){
     if(!message.member.roles.has('541061831045677095')){
         message.reply("you have been added to @Multiplayer! Za awtgsshu wgah uulg'ma ywaq zaix. :game_die:");
         message.member.addRole('541061831045677095');
-	debugChannel.send(message.member.displayName + " was added to @Multiplayer.");
+	console.log(message.member.displayName + " was added to @Multiplayer.");
     }
     else{
         message.reply("you have been removed from @Multiplayer! Za awtgsshu wgah uulg'ma ywaq zaix. :game_die: :gun:");
         message.member.removeRole('541061831045677095');
-	debugChannel.send(message.member.displayName + " was removed from @Multiplayer.");
+	console.log(message.member.displayName + " was removed from @Multiplayer.");
     }
 }
 
 function lobbyCommand(message,arguments) {
-    debugChannel.send(message.member.displayName + " has used g!mplobby")
+    console.log(message.member.displayName + " has used g!mplobby")
 
     var mplobbyMessage = ":game_die: <@&541061831045677095>, " + message.member.displayName + " has scheduled a game for " + arguments[0]+ ", " + arguments[1] + " at " + arguments[2]+ " GMT. React with <:ghuun:535311429033787403> if you plan to join. :game_die:";
     
@@ -185,7 +176,7 @@ function rateCommand(message,strToRate){
 function sendNudes(message) {
     var randomToken = Math.random()*4;
 
-    debugChannel.send(message.member.displayName + " has asked for nudes. Token = " + randomToken);
+    console.log(message.member.displayName + " has asked for nudes. Token = " + randomToken);
 
     if(randomToken < 1) {
         message.channel.send(ghuun1);
@@ -205,22 +196,22 @@ function sendNudes(message) {
 }
 
 function reactWithGhuun(message) {
-    debugChannel.send(message.member.displayName + " has mentioned G'huun.")
+    console.log(message.member.displayName + " has mentioned G'huun.")
     message.react(message.guild.emojis.get('535311429033787403'))
 }
 
 function proclaimSoon (message) {
-    debugChannel.send(message.member.displayName + " has said soon.")
+    console.log(message.member.displayName + " has said soon.")
     message.reply("SOOOOOOOOOON!")
 }
 
 function askSoon (message) {
-    debugChannel.send(message.member.displayName + " has asked when?")
+    console.log(message.member.displayName + " has asked when?")
     message.reply(" 'kadiq \"soon\"")
 }
 
 function speakCommand (message,substring) {
-    debugChannel.send(message.member.displayName + " is gay for G'huun. Message send is " + substring);
+    console.log(message.member.displayName + " is gay for G'huun. Message send is " + substring);
     message.channel.send(substring)
 }
 
@@ -238,39 +229,36 @@ function hash(strToHash) {
 }
 
 client.on('ready', () => { //G'huun Boot Sequence
-    debugChannel = client.channels.find(ch => ch.name === 'ghuun-debug');
     wellMet = new Discord.Attachment('WELLMET.png')
-    debugChannel.send("Wellmet.png loaded...");
+    console.log("Wellmet.png loaded...");
     fagVideo = new Discord.Attachment('video.mp4')
-    debugChannel.send("video.mp4 loaded...");
+    console.log("video.mp4 loaded...");
     turtleVideo = new Discord.Attachment('turtle.mp4')
-    debugChannel.send("turtle.mp4 loaded...");
+    console.log("turtle.mp4 loaded...");
     khalid = new Discord.Attachment('khalid.gif')
-    debugChannel.send("khalid.gif loaded...");
+    console.log("khalid.gif loaded...");
     ghuun1 = new Discord.Attachment('Ghuun1.png')
-    debugChannel.send("Ghuun1.png loaded...");
+    console.log("Ghuun1.png loaded...");
     ghuun2 = new Discord.Attachment('Ghuun2.png')
-    debugChannel.send("Ghuun2.png loaded...");
+    console.log("Ghuun2.png loaded...");
     ghuun3 = new Discord.Attachment('Ghuun3.png')
-    debugChannel.send("Ghuun3.png loaded...");
+    console.log("Ghuun3.png loaded...");
     ghuun4 = new Discord.Attachment('Ghuun4.png')
-    debugChannel.send("Ghuun4.png loaded...");
+    console.log("Ghuun4.png loaded...");
     ghuun5 = new Discord.Attachment('Ghuun5.png')
-    debugChannel.send("Ghuun5.png loaded...");
+    console.log("Ghuun5.png loaded...");
     ghuun = client.user;
-    debugChannel.send("G'huun user ID saved...");
+    console.log("G'huun user ID saved...");
     yurlqiCounter = 24
     console.log("Yurlqis set to " + yurlqiCounter + "...");
-    debugChannel.send("G'huun Version is "+GhuunVersion);
+    console.log("G'huun Version is "+GhuunVersion);
 
     generalChannel = client.channels.find(ch => ch.name === 'general');
 
     multiplayerChannel = client.channels.find(ch => ch.name === 'multiplayer');
     
-    debugChannel.send("G'huun startup successful!");
-
-    hook = new Discord.WebhookClient('webhook id', 'webhook token');
+    console.log("G'huun startup successful!");
 
 });
 
-client.login(token);
+client.login('NTUxMTQ5OTk3ODM2NzMwMzc0.XcXeGw.cn0KQUitbqIRVHT0I1936m6lQ-4');
