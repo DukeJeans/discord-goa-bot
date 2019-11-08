@@ -93,10 +93,10 @@ client.on('message', (message) => { //Commands
 
 function interpretCommand(message){
 
-    let command = message.content.substr(2)
-    let commandPieces = command.split(" ")
-    let mainCommand = commandPieces[0]
-    let arguments = commandPieces.slice(1)
+    var command = message.content.substr(2)
+    var commandPieces = command.split(" ")
+    var mainCommand = commandPieces[0]
+    var arguments = commandPieces.slice(1)
 
     debugChannel.send("Command received: " + mainCommand)
     debugChannel.send("Arguments: " + arguments)
