@@ -26,7 +26,7 @@ fs.readfile('token.txt', (err, data) => {
 })
 
 client.on("guildMemberAdd", member => {
-    let guild = member.guild;
+    guild = member.guild;
 
     debugChannel.send("Greeting new user: "+member.displayName +" Number Generated: " + randomNumber);
 
