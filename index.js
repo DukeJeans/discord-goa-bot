@@ -14,7 +14,7 @@ var multiplayerChannel
 var hook
 var yurlqiCounter
 var turtleVideo
-var GhuunVersion = 2.0
+var GhuunVersion = 2.1
 
 client.on("guildMemberAdd", member => {
     guild = member.guild;
@@ -212,7 +212,8 @@ function askSoon (message) {
 
 function speakCommand (message,substring) {
     console.log(message.member.displayName + " is gay for G'huun. Message send is " + substring);
-    message.channel.send(substring)
+    message.channel.send(substring);
+    message.delete();
 }
 
 function hash(strToHash) {
