@@ -162,10 +162,10 @@ function lobbyCommand(message,arguments) {
 }
 
 function rateCommand(message,strToRate){
-    if(strToRate.search("@") != -1){
-        message.channel.send("Don't ping people!");
-        return;
-    }
+    //if(strToRate.search("@") != -1){
+    //    message.channel.send("Don't ping people!");
+    //    return;
+    //}
     var rating = hash(strToRate);
     rating = Math.abs(rating%11);
     if(strToRate.toLowerCase() === "ghuun" || strToRate.toLowerCase() === "g'huun")
