@@ -1,20 +1,23 @@
-const Discord = require('discord.js')
+const Discord = require('discord.js');
+const Utilities = require('./ghuunUtilities');
+const Token = require('./token'); //Imports G'huun client secret from untracked file
 const client = new Discord.Client()
 
-var wellMet
-var fagVideo
-var ghuun1
-var ghuun2
-var ghuun3
-var ghuun4
-var ghuun5
-var generalChannel
-var khalid
-var multiplayerChannel
-var hook
-var yurlqiCounter
-var turtleVideo
-var GhuunVersion = 2.1
+wellMet = new Discord.Attachment('WELLMET.png')
+fagVideo = new Discord.Attachment('video.mp4')
+turtleVideo = new Discord.Attachment('turtle.mp4')
+khalid = new Discord.Attachment('khalid.gif')
+ghuun1 = new Discord.Attachment('Ghuun1.png')
+ghuun2 = new Discord.Attachment('Ghuun2.png')
+ghuun3 = new Discord.Attachment('Ghuun3.png')
+ghuun4 = new Discord.Attachment('Ghuun4.png')
+ghuun5 = new Discord.Attachment('Ghuun5.png')
+ghuun6 = new Discord.Attachment('Ghuun6.png')
+ghuun = client.user;
+var generalChannel = client.channels.find(ch => ch.name === 'general');
+multiplayerChannel = client.channels.find(ch => ch.name === 'multiplayer');
+
+GhuunVersion = 2.2;
 
 client.on("guildMemberAdd", member => {
     guild = member.guild;
@@ -60,7 +63,6 @@ client.on('message', (message) => { //Commands
     if (message.author == client.user) {
         return
     }
-
     if(message.content.toLowerCase() == "ghuun send nudes" || message.content.toLowerCase() == "g'huun send nudes" ){
         sendNudes(message)
     }
@@ -76,7 +78,6 @@ client.on('message', (message) => { //Commands
     {
         askSoon(message)
     }
-
     if (message.content.startsWith("g!")) {
         interpretCommand(message)
     }
@@ -92,30 +93,25 @@ function interpretCommand(message){
     console.log("Command received: " + mainCommand)
     console.log("Arguments: " + arguments)
 
-    if (mainCommand == "ping") {
-        helpCommand(message)
+    switch(mainCommand){
+        case "ping":        helpCommand(message); break;
+        case "emoji":       emojiCommand(message); break;
+        case "multiplayer": multiplayerCommand(message); break;
+        case "mphelp":      multiplayerHelp(message); break;
+        case "mplobby":     lobbyCommand(message,arguments); break;
+        case "gayforghuun": speakCommand(message,message.content.substring(13)); break;
+        case "rate":        rateCommand(message,message.content.substring(6)); break;
+        case "rule1":       ruleOne(message); break;
+        case "rule2":       ruleTwo(message); break;
+        case "rule3":       ruleThree(message); break;
+        case "rule4":       ruleFour(message); break;
+        case "rule5":       ruleFive(message); break;
+        default:            commandError(message);
     }
-    if (mainCommand == "emoji") {
-        emojiCommand(message)
-    }
-    if(mainCommand == "multiplayer"){
-        multiplayerCommand(message)
-    }
-    if(mainCommand == "testPhrase"){
-        testPhraseCommand(message)
-    }
-    if(mainCommand == "mphelp"){
-        multiplayerHelp(message)
-    }
-    if(mainCommand == "mplobby"){
-        lobbyCommand(message,arguments)
-    }
-    if(mainCommand == "gayforghuun"){
-        speakCommand(message,message.content.substring(13))
-    }
-    if(mainCommand == "rate"){
-        rateCommand(message,message.content.substring(6))
-    }
+}
+
+function commandError(message){
+    message.channel.send("Command not recognized.");
 }
 
 function helpCommand (message){
@@ -124,10 +120,6 @@ function helpCommand (message){
 
 function emojiCommand (message){
     message.reply("<:ghuun:535311429033787403>");
-}
-
-function testPhraseCommand(message) {
-    console.log("has consumed the soul of "+ message.member.displayName);
 }
 
 function multiplayerHelp(message) {
@@ -162,10 +154,6 @@ function lobbyCommand(message,arguments) {
 }
 
 function rateCommand(message,strToRate){
-    //if(strToRate.search("@") != -1){
-    //    message.channel.send("Don't ping people!");
-    //    return;
-    //}
     var rating = hash(strToRate);
     rating = Math.abs(rating%11);
     if(strToRate.toLowerCase() === "ghuun" || strToRate.toLowerCase() === "g'huun")
@@ -174,45 +162,61 @@ function rateCommand(message,strToRate){
 }
 
 function sendNudes(message) {
-    var randomToken = Math.random()*4;
+    var randomToken = Utilities.getRandomInt(6);
 
-    console.log(message.member.displayName + " has asked for nudes. Token = " + randomToken);
-
-    if(randomToken < 1) {
-        message.channel.send(ghuun1);
-    }
-    else if(randomToken < 2) {
-        message.channel.send(ghuun2);
-    }
-    else if(randomToken < 3) {
-        message.channel.send(ghuun3);
-    }
-    else if(randomToken < 4) {
-        message.channel.send(ghuun4);
-    }
-    else {
-        message.channel.send(ghuun5);
+    switch(randomToken){
+        case 0:  message.channel.send(ghuun1); break;
+        case 1:  message.channel.send(ghuun2); break;
+        case 2:  message.channel.send(ghuun3); break;
+        case 3:  message.channel.send(ghuun4); break;
+        case 4:  message.channel.send(ghuun5); break;
+        default: message.channel.send(ghuun6); break;
     }
 }
 
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
 function reactWithGhuun(message) {
-    console.log(message.member.displayName + " has mentioned G'huun.")
     message.react(message.guild.emojis.get('535311429033787403'))
 }
 
 function proclaimSoon (message) {
-    console.log(message.member.displayName + " has said soon.")
     message.reply("SOOOOOOOOOON!")
 }
 
 function askSoon (message) {
-    console.log(message.member.displayName + " has asked when?")
     message.reply(" 'kadiq \"soon\"")
 }
 
 function speakCommand (message,substring) {
-    console.log(message.member.displayName + " is gay for G'huun. Message send is " + substring);
     message.channel.send(substring);
+    message.delete();
+}
+
+function ruleOne (message) {
+    message.channel.send("Rule 1: Don't be a dick.");
+    message.delete();
+}
+
+function ruleTwo (message) {
+    message.channel.send("Rule 2: Targeted harassment of others and general spaminess is not tolerated.");
+    message.delete();
+}
+
+function ruleThree (message) {
+    message.channel.send("Rule 3: Keep NSFW stuff in #toxic-lounge.");
+    message.delete();
+}
+
+function ruleFour (message) {
+    message.channel.send("Rule 4: Scenes of zoophilia, necrophilia, death, child porn, disfigurement, and guro are completely prohibited.");
+    message.delete();
+}
+
+function ruleFive (message) {
+    message.channel.send("Rule 5: Don't go breaking the Discord ToS.");
     message.delete();
 }
 
@@ -230,36 +234,10 @@ function hash(strToHash) {
 }
 
 client.on('ready', () => { //G'huun Boot Sequence
-    wellMet = new Discord.Attachment('WELLMET.png')
-    console.log("Wellmet.png loaded...");
-    fagVideo = new Discord.Attachment('video.mp4')
-    console.log("video.mp4 loaded...");
-    turtleVideo = new Discord.Attachment('turtle.mp4')
-    console.log("turtle.mp4 loaded...");
-    khalid = new Discord.Attachment('khalid.gif')
-    console.log("khalid.gif loaded...");
-    ghuun1 = new Discord.Attachment('Ghuun1.png')
-    console.log("Ghuun1.png loaded...");
-    ghuun2 = new Discord.Attachment('Ghuun2.png')
-    console.log("Ghuun2.png loaded...");
-    ghuun3 = new Discord.Attachment('Ghuun3.png')
-    console.log("Ghuun3.png loaded...");
-    ghuun4 = new Discord.Attachment('Ghuun4.png')
-    console.log("Ghuun4.png loaded...");
-    ghuun5 = new Discord.Attachment('Ghuun5.png')
-    console.log("Ghuun5.png loaded...");
-    ghuun = client.user;
-    console.log("G'huun user ID saved...");
-    yurlqiCounter = 24
-    console.log("Yurlqis set to " + yurlqiCounter + "...");
-    console.log("G'huun Version is "+GhuunVersion);
-
     generalChannel = client.channels.find(ch => ch.name === 'general');
-
-    multiplayerChannel = client.channels.find(ch => ch.name === 'multiplayer');
-    
     console.log("G'huun startup successful!");
+    generalChannel.send("**G'huun Online: Version 2.2**");
 
 });
 
-client.login('NTUxMTQ5OTk3ODM2NzMwMzc0.XcXeGw.cn0KQUitbqIRVHT0I1936m6lQ-4');
+client.login(Token.key);
