@@ -1,65 +1,61 @@
-const Discord = require('discord.js');
+const Discord   = require('discord.js');
 const Utilities = require('./ghuunUtilities');
-const Token = require('./token'); //Imports G'huun client secret from untracked file
-const client = new Discord.Client()
+const Token     = require('./token'); //Imports G'huun client secret from untracked file
+const client    = new Discord.Client()
 
-wellMet = new Discord.Attachment('WELLMET.png')
-fagVideo = new Discord.Attachment('video.mp4')
+wellMet     = new Discord.Attachment('WELLMET.png')
+fagVideo    = new Discord.Attachment('video.mp4')
 turtleVideo = new Discord.Attachment('turtle.mp4')
-khalid = new Discord.Attachment('khalid.gif')
-ghuun1 = new Discord.Attachment('Ghuun1.png')
-ghuun2 = new Discord.Attachment('Ghuun2.png')
-ghuun3 = new Discord.Attachment('Ghuun3.png')
-ghuun4 = new Discord.Attachment('Ghuun4.png')
-ghuun5 = new Discord.Attachment('Ghuun5.png')
-ghuun6 = new Discord.Attachment('Ghuun6.png')
+khalid      = new Discord.Attachment('khalid.gif')
+whip        = new Discord.Attachment('whip.mp4')
+ghuun1      = new Discord.Attachment('Ghuun1.png')
+ghuun2      = new Discord.Attachment('Ghuun2.png')
+ghuun3      = new Discord.Attachment('Ghuun3.png')
+ghuun4      = new Discord.Attachment('Ghuun4.png')
+ghuun5      = new Discord.Attachment('Ghuun5.png')
+ghuun6      = new Discord.Attachment('Ghuun6.png')
 ghuun = client.user;
 var generalChannel = client.channels.find(ch => ch.name === 'general');
 multiplayerChannel = client.channels.find(ch => ch.name === 'multiplayer');
 
-GhuunVersion = 2.2;
+GhuunVersion = 2.3;
 
 client.on("guildMemberAdd", member => {
-    guild = member.guild;
-
-    console.log("Greeting new user: "+member.displayName +" Number Generated: " + randomNumber);
-
-    var randomNumber = Math.random()*4;
-    if(randomNumber < 1){
-        generalChannel.send(`<:tortle:604685683285819402> A new turtle, ${member.user}, has made it to the Discord! <:tortle:604685683285819402>`)
-        generalChannel.send(turtleVideo);
-    }
-    else if(randomNumber < 2){
-        generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
-        generalChannel.send(wellMet);
-    }
-    else if(randomNumber < 3){
-        generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq. Another one :point_up: has made it to the Discord.`)
-        generalChannel.send(khalid);
-    }
-    else {
-        generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
-        generalChannel.send(fagVideo);
-    }
-
-    if(member.displayName == "Yurlqi"){
-        yurlqiCounter++;
-        generalChannel.send(":arrow_up: Yurlqi Counter: "+yurlqiCounter);
-    }
-    console.log("Greeted User "+member.displayName +" Number Generated: "+randomNumber);
-
-  });
-
-client.on('guildMemberRemove',(member) => {
-    generalChannel.send(`*consumes the soul of ${member.displayName}*`)
-
-    if(member.displayName == "Yurlqi"){
-        yurlqiCounter--;
-        generalChannel.send(":arrow_down: Yurlqi Counter: "+yurlqiCounter);
-    }
+    greetMember(member);
 });
 
-client.on('message', (message) => { //Commands
+client.on('guildMemberRemove',(member) => {
+    consumeMember(member);
+});
+
+client.on('message', (message) => { //Command Listener
+    processCommand(message);
+});
+
+function consumeMember(member) {
+    generalChannel.send(`*consumes the soul of ${member.displayName}*`)
+}
+
+function greetMember(member) {
+    guild = member.guild;
+
+    var randomToken = Utilities.getRandomInt(5);
+    
+    switch(randomToken){
+        case 0:  generalChannel.send(`<:tortle:604685683285819402> A new turtle, ${member.user}, has made it to the Discord! <:tortle:604685683285819402>`);
+                 generalChannel.send(turtleVideo); break;
+        case 1:  generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
+                 generalChannel.send(wellMet); break;
+        case 2:  generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq. Another one :point_up: has made it to the Discord.`)
+                 generalChannel.send(khalid); break;
+        case 3:  generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
+                 generalChannel.send(fagVideo); break;
+        default: generalChannel.send(`<:whip:562757939765575705> ${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. <:whip:562757939765575705>`)
+                 generalChannel.send(whip); break;
+    }
+}
+
+function processCommand(message) {
     if (message.author == client.user) {
         return
     }
@@ -81,7 +77,7 @@ client.on('message', (message) => { //Commands
     if (message.content.startsWith("g!")) {
         interpretCommand(message)
     }
-});
+}
 
 function interpretCommand(message){
 
@@ -233,11 +229,22 @@ function hash(strToHash) {
     return hash;
 }
 
+function setBotPresence() {
+    client.user.setStatus('available');
+    client.user.setPresence({
+        game: {
+            name: 'over the slaves',
+            type: "WATCHING",
+            url:  "https://github.com/DukeJeans/discord-goa-bot"
+        }
+    })
+}
+
 client.on('ready', () => { //G'huun Boot Sequence
     generalChannel = client.channels.find(ch => ch.name === 'general');
     console.log("G'huun startup successful!");
-    generalChannel.send("**G'huun Online: Version 2.2**");
-
+    generalChannel.send("**G'huun Online: Version 2.3**");
+    setBotPresence();
 });
 
 client.login(Token.key);
