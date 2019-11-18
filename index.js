@@ -18,7 +18,7 @@ ghuun = client.user;
 var generalChannel = client.channels.find(ch => ch.name === 'general');
 multiplayerChannel = client.channels.find(ch => ch.name === 'multiplayer');
 
-GhuunVersion = 2.3;
+GhuunVersion = "2.3.1";
 
 client.on("guildMemberAdd", member => {
     greetMember(member);
@@ -56,25 +56,32 @@ function greetMember(member) {
 }
 
 function processCommand(message) {
+    var saidSoon     = (message.content.toLowerCase().search("soon") != -1 && message.content.length == 4);
+    var saidWhen     = (message.content.toLowerCase().search("when") != -1 && message.content.length == 4);
+    var saidGhuun    = (message.content.toLowerCase().search("ghuun") != -1 || message.content.toLowerCase().search("g'huun") != -1);
+    var askedForPics = (message.content.toLowerCase() == "ghuun send nudes" || message.content.toLowerCase() == "g'huun send nudes");
+    var isCommand    = (message.content.startsWith("g!"));
+
     if (message.author == client.user) {
-        return
+        return;
     }
-    if(message.content.toLowerCase() == "ghuun send nudes" || message.content.toLowerCase() == "g'huun send nudes" ){
+    if(askedForPics){
         sendNudes(message)
     }
-    if(message.content.toLowerCase().search("ghuun") != -1 || message.content.toLowerCase().search("g'huun") != -1)
+    if (saidGhuun)
     {
         reactWithGhuun(message)
     }
-    if(message.content.toLowerCase().search("soon") != -1 && message.content.length == 4)
+    if (saidSoon)
     {
         proclaimSoon(message)
     }
-    else if(message.content.toLowerCase().search("when") != -1 && message.content.length == 4)
+    else if (saidWhen)
     {
         askSoon(message)
     }
-    if (message.content.startsWith("g!")) {
+    if (isCommand)
+    {
         interpretCommand(message)
     }
 }
@@ -85,9 +92,6 @@ function interpretCommand(message){
     var commandPieces = command.split(" ")
     var mainCommand = commandPieces[0]
     var arguments = commandPieces.slice(1)
-
-    console.log("Command received: " + mainCommand)
-    console.log("Arguments: " + arguments)
 
     switch(mainCommand){
         case "ping":        helpCommand(message); break;
@@ -243,7 +247,7 @@ function setBotPresence() {
 client.on('ready', () => { //G'huun Boot Sequence
     generalChannel = client.channels.find(ch => ch.name === 'general');
     console.log("G'huun startup successful!");
-    generalChannel.send("**G'huun Online: Version 2.3**");
+    generalChannel.send("**G'huun Online: Version "+GhuunVersion+"**");
     setBotPresence();
 });
 
