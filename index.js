@@ -19,7 +19,7 @@ generalChannel = client.channels.find(ch => ch.name === 'general');
 debugChannel = client.channels.find(ch => ch.name === 'ghuun-debug');
 multiplayerChannel = client.channels.find(ch => ch.name === 'multiplayer');
 
-GhuunVersion = "2.3.2";
+GhuunVersion = "2.3.2.1";
 
 client.on("guildMemberAdd", member => {
     greetMember(member);
@@ -249,6 +249,7 @@ function setBotPresence() {
 
 client.on('ready', () => { //G'huun Boot Sequence
     generalChannel = client.channels.find(ch => ch.name === 'general');
+    debugChannel = client.channels.find(ch => ch.name === 'ghuun-debug');
     console.log("G'huun startup successful!");
     generalChannel.send("**G'huun Online: Version "+GhuunVersion+"**");
     setBotPresence();
