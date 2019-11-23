@@ -15,10 +15,11 @@ ghuun4      = new Discord.Attachment('Ghuun4.png')
 ghuun5      = new Discord.Attachment('Ghuun5.png')
 ghuun6      = new Discord.Attachment('Ghuun6.png')
 ghuun = client.user;
-var generalChannel = client.channels.find(ch => ch.name === 'general');
+generalChannel = client.channels.find(ch => ch.name === 'general');
+debugChannel = client.channels.find(ch => ch.name === 'ghuun-debug');
 multiplayerChannel = client.channels.find(ch => ch.name === 'multiplayer');
 
-GhuunVersion = "2.3.1";
+GhuunVersion = "2.3.2";
 
 client.on("guildMemberAdd", member => {
     greetMember(member);
@@ -192,6 +193,8 @@ function askSoon (message) {
 
 function speakCommand (message,substring) {
     message.channel.send(substring);
+    debugChannel.send(message.member.displayName+" told G'huun to say \""+
+        substring+"\".");
     message.delete();
 }
 
