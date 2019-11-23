@@ -15,11 +15,11 @@ ghuun4      = new Discord.Attachment('Ghuun4.png')
 ghuun5      = new Discord.Attachment('Ghuun5.png')
 ghuun6      = new Discord.Attachment('Ghuun6.png')
 ghuun = client.user;
-generalChannel = client.channels.find(ch => ch.name === 'general');
-debugChannel = client.channels.find(ch => ch.name === 'ghuun-debug');
-multiplayerChannel = client.channels.find(ch => ch.name === 'multiplayer');
+generalChannel = client.channels.get(317370095024209920);
+debugChannel = client.channels.get(606131458549219328);
+multiplayerChannel = client.channels.get(540582116832837632);
 
-GhuunVersion = "2.3.2.1";
+GhuunVersion = "2.3.2.2";
 
 client.on("guildMemberAdd", member => {
     greetMember(member);
@@ -248,8 +248,6 @@ function setBotPresence() {
 }
 
 client.on('ready', () => { //G'huun Boot Sequence
-    generalChannel = client.channels.find(ch => ch.name === 'general');
-    debugChannel = client.channels.find(ch => ch.name === 'ghuun-debug');
     console.log("G'huun startup successful!");
     generalChannel.send("**G'huun Online: Version "+GhuunVersion+"**");
     setBotPresence();
