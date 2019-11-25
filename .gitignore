@@ -1,1 +1,2 @@
-token.js
+src/token.js
+*.code-workspace

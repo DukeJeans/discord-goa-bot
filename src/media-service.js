@@ -1,0 +1,24 @@
+const Discord      = require('discord.js');
+
+wellMet     = new Discord.Attachment('../media/WELLMET.png')
+knightVideo = new Discord.Attachment('video.mp4')
+turtleVideo = new Discord.Attachment('turtle.mp4')
+khalid      = new Discord.Attachment('khalid.gif')
+whip        = new Discord.Attachment('whip.mp4')
+ghuun1      = new Discord.Attachment('Ghuun1.png')
+ghuun2      = new Discord.Attachment('Ghuun2.png')
+ghuun3      = new Discord.Attachment('Ghuun3.png')
+ghuun4      = new Discord.Attachment('Ghuun4.png')
+ghuun5      = new Discord.Attachment('Ghuun5.png')
+ghuun6      = new Discord.Attachment('Ghuun6.png')
+exports.wellMet = wellMet;
+exports.knightVideo = knightVideo;
+exports.turtleVideo = turtleVideo;
+exports.khalid = khalid;
+exports.whip = whip;
+exports.ghuun1 = ghuun1;
+exports.ghuun2 = ghuun2;
+exports.ghuun3 = ghuun3;
+exports.ghuun4 = ghuun4;
+exports.ghuun5 = ghuun5;
+exports.ghuun6 = ghuun6;
