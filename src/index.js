@@ -1,25 +1,15 @@
-const Discord   = require('discord.js');
-const Utilities = require('./ghuunUtilities');
-const Token     = require('./token'); //Imports G'huun client secret from untracked file
-const client    = new Discord.Client()
+const Discord      = require('discord.js');
+const utilities    = require('./bot-utilities.js');
+const media        = require('./media-service.js');
+const Token        = require('./token');
+const client       = new Discord.Client()
 
-wellMet     = new Discord.Attachment('WELLMET.png')
-fagVideo    = new Discord.Attachment('video.mp4')
-turtleVideo = new Discord.Attachment('turtle.mp4')
-khalid      = new Discord.Attachment('khalid.gif')
-whip        = new Discord.Attachment('whip.mp4')
-ghuun1      = new Discord.Attachment('Ghuun1.png')
-ghuun2      = new Discord.Attachment('Ghuun2.png')
-ghuun3      = new Discord.Attachment('Ghuun3.png')
-ghuun4      = new Discord.Attachment('Ghuun4.png')
-ghuun5      = new Discord.Attachment('Ghuun5.png')
-ghuun6      = new Discord.Attachment('Ghuun6.png')
 ghuun = client.user;
 generalChannel = client.channels.find(ch => ch.name === 'general');
 debugChannel = client.channels.find(ch => ch.name === 'ghuun-debug');
 multiplayerChannel = client.channels.find(ch => ch.name === 'multiplayer');
 
-GhuunVersion = "2.3.2.1";
+GhuunVersion = "2.3.2.2";
 
 client.on("guildMemberAdd", member => {
     greetMember(member);
@@ -40,19 +30,19 @@ function consumeMember(member) {
 function greetMember(member) {
     guild = member.guild;
 
-    var randomToken = Utilities.getRandomInt(5);
+    var randomToken = utilities.getRandomInt(5);
     
     switch(randomToken){
         case 0:  generalChannel.send(`<:tortle:604685683285819402> A new turtle, ${member.user}, has made it to the Discord! <:tortle:604685683285819402>`);
-                 generalChannel.send(turtleVideo); break;
+                 generalChannel.send(media.turtleVideo); break;
         case 1:  generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
-                 generalChannel.send(wellMet); break;
+                 generalChannel.send(media.wellMet); break;
         case 2:  generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq. Another one :point_up: has made it to the Discord.`)
-                 generalChannel.send(khalid); break;
+                 generalChannel.send(media.khalid); break;
         case 3:  generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
-                 generalChannel.send(fagVideo); break;
+                 generalChannel.send(media.knightVideo); break;
         default: generalChannel.send(`<:whip:562757939765575705> ${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. <:whip:562757939765575705>`)
-                 generalChannel.send(whip); break;
+                 generalChannel.send(media.whip); break;
     }
 }
 
@@ -163,15 +153,15 @@ function rateCommand(message,strToRate){
 }
 
 function sendNudes(message) {
-    var randomToken = Utilities.getRandomInt(6);
+    var randomToken = utilities.getRandomInt(6);
 
     switch(randomToken){
-        case 0:  message.channel.send(ghuun1); break;
-        case 1:  message.channel.send(ghuun2); break;
-        case 2:  message.channel.send(ghuun3); break;
-        case 3:  message.channel.send(ghuun4); break;
-        case 4:  message.channel.send(ghuun5); break;
-        default: message.channel.send(ghuun6); break;
+        case 0:  message.channel.send(media.ghuun1); break;
+        case 1:  message.channel.send(media.ghuun2); break;
+        case 2:  message.channel.send(media.ghuun3); break;
+        case 3:  message.channel.send(media.ghuun4); break;
+        case 4:  message.channel.send(media.ghuun5); break;
+        default: message.channel.send(media.ghuun6); break;
     }
 }
 
