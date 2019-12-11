@@ -9,7 +9,7 @@ generalChannel = client.channels.get(317370095024209920);
 debugChannel = client.channels.get(606131458549219328);
 multiplayerChannel = client.channels.get(540582116832837632);
 
-GhuunVersion = "2.3.2.2";
+GhuunVersion = "2.3.2.4";
 
 client.on("guildMemberAdd", member => {
     greetMember(member);
