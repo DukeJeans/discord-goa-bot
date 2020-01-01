@@ -1,51 +1,51 @@
-const Discord      = require('discord.js');
-const utilities    = require('./bot-utilities.js');
-const media        = require('./media-service.js');
-const Token        = require('./token');
-const client       = new Discord.Client();
+const DISCORD         = require('discord.js');
+const TOOLS           = require('./bot-functions');
+const TOKEN           = require('./token');
+const COMMAND_HANDLER = require('./command-handler')
+const CLIENT          = new DISCORD.Client();
 
-client.login(Token.key);
+CLIENT.login(TOKEN.key);
 
-var generalChannel     = client.channels.get(317370095024209920);
-var debugChannel       = client.channels.get(606131458549219328);
-var multiplayerChannel = client.channels.get(540582116832837632);
+const GENERAL_CHANNEL     = CLIENT.channels.get(317370095024209920);
+const DEBUG_CHANNEL       = CLIENT.channels.get(606131458549219328);
+const MULTIPLAYER_CHANNEL = CLIENT.channels.get(540582116832837632);
 
-GhuunVersion = "2.3.2.4";
+GhuunVersion = "3.0";
 
-console.log(client.channels);
+console.log(CLIENT.channels);
 
-client.on("guildMemberAdd", member => {
+CLIENT.on("guildMemberAdd", member => {
     greetMember(member);
 });
 
-client.on('guildMemberRemove',(member) => {
+CLIENT.on('guildMemberRemove',(member) => {
     consumeMember(member);
 });
 
-client.on('message', (message) => { //Command Listener
-    processCommand(message);
+CLIENT.on('message', (message) => { //Command Listener
+    COMMAND_HANDLER.processCommand(message);
 });
 
 function consumeMember(member) {
-    generalChannel.send(`*consumes the soul of ${member.displayName}*`)
+    GENERAL_CHANNEL.send(`*consumes the soul of ${member.displayName}*`)
 }
 
 function greetMember(member) {
     guild = member.guild;
 
-    var randomToken = utilities.getRandomInt(5);
+    var randomToken = TOOLS.getRandomInt(5);
     
     switch(randomToken){
-        case 0:  generalChannel.send(`<:tortle:604685683285819402> A new turtle, ${member.user}, has made it to the Discord! <:tortle:604685683285819402>`);
-                 generalChannel.send(media.turtleVideo); break;
-        case 1:  generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
-                 generalChannel.send(media.wellMet); break;
-        case 2:  generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq. Another one :point_up: has made it to the Discord.`)
-                 generalChannel.send(media.khalid); break;
-        case 3:  generalChannel.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
-                 generalChannel.send(media.knightVideo); break;
-        default: generalChannel.send(`<:whip:562757939765575705> ${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. <:whip:562757939765575705>`)
-                 generalChannel.send(media.whip); break;
+        case 0:  GENERAL_CHANNEL.send(`<:tortle:604685683285819402> A new turtle, ${member.user}, has made it to the Discord! <:tortle:604685683285819402>`);
+                 GENERAL_CHANNEL.send(media.turtleVideo); break;
+        case 1:  GENERAL_CHANNEL.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
+                 GENERAL_CHANNEL.send(media.wellMet); break;
+        case 2:  GENERAL_CHANNEL.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq. Another one :point_up: has made it to the Discord.`)
+                 GENERAL_CHANNEL.send(media.khalid); break;
+        case 3:  GENERAL_CHANNEL.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
+                 GENERAL_CHANNEL.send(media.knightVideo); break;
+        default: GENERAL_CHANNEL.send(`<:whip:562757939765575705> ${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. <:whip:562757939765575705>`)
+                 GENERAL_CHANNEL.send(media.whip); break;
     }
 }
 
@@ -56,7 +56,7 @@ function processCommand(message) {
     var askedForPics = (message.content.toLowerCase() == "ghuun send nudes" || message.content.toLowerCase() == "g'huun send nudes");
     var isCommand    = (message.content.startsWith("g!"));
 
-    if (message.author == client.user) {
+    if (message.author == CLIENT.user) {
         return;
     }
     if(askedForPics){
@@ -118,9 +118,9 @@ function emojiCommand (message){
 
 function multiplayerHelp(message) {
     console.log(message.member.displayName + " has used g!mphelp");
-    multiplayerChannel.send("Use `g!multiplayer` to join the @Multiplayer role for pings related to multiplayer games.")
-    multiplayerChannel.send("Use `g!mplobby` create a multiplayer game and have it pinned to the channel. Please use this format: `g!mplobby (DAY) (dd/mm) (TIME in GMT)`.")
-    multiplayerChannel.fetchMessages({ limit: 1 })
+    MULTIPLAYER_CHANNEL.send("Use `g!multiplayer` to join the @Multiplayer role for pings related to multiplayer games.")
+    MULTIPLAYER_CHANNEL.send("Use `g!mplobby` create a multiplayer game and have it pinned to the channel. Please use this format: `g!mplobby (DAY) (dd/mm) (TIME in GMT)`.")
+    MULTIPLAYER_CHANNEL.fetchMessages({ limit: 1 })
 }
 
 function multiplayerCommand (message){
@@ -141,7 +141,7 @@ function lobbyCommand(message,arguments) {
 
     var mplobbyMessage = ":game_die: <@&541061831045677095>, " + message.member.displayName + " has scheduled a game for " + arguments[0]+ ", " + arguments[1] + " at " + arguments[2]+ " GMT. React with <:ghuun:535311429033787403> if you plan to join. :game_die:";
     
-    multiplayerChannel.send(mplobbyMessage).then(message => {
+    MULTIPLAYER_CHANNEL.send(mplobbyMessage).then(message => {
         message.react(message.guild.emojis.get('535311429033787403'))
         message.pin();
     })
@@ -156,7 +156,7 @@ function rateCommand(message,strToRate){
 }
 
 function sendNudes(message) {
-    var randomToken = utilities.getRandomInt(6);
+    var randomToken = TOOLS.getRandomInt(6);
 
     switch(randomToken){
         case 0:  message.channel.send(media.ghuun1); break;
@@ -186,7 +186,7 @@ function askSoon (message) {
 
 function speakCommand (message,substring) {
     message.channel.send(substring);
-    debugChannel.send(message.member.displayName+" told G'huun to say \""+
+    DEBUG_CHANNEL.send(message.member.displayName+" told G'huun to say \""+
         substring+"\".");
     message.delete();
 }
@@ -230,8 +230,8 @@ function hash(strToHash) {
 }
 
 function setBotPresence() {
-    client.user.setStatus('available');
-    client.user.setPresence({
+    CLIENT.user.setStatus('available');
+    CLIENT.user.setPresence({
         game: {
             name: 'over the slaves',
             type: "WATCHING",
@@ -240,9 +240,9 @@ function setBotPresence() {
     })
 }
 
-client.on('ready', () => { //G'huun Boot Sequence
+CLIENT.on('ready', () => { //G'huun Boot Sequence
     console.log("G'huun startup successful!");
-    console.log(client.channels);
-    //generalChannel.send("**G'huun Online: Version "+GhuunVersion+"**");
+    console.log(CLIENT.channels);
     setBotPresence();
+    GENERAL_CHANNEL.send("**G'huun Online: Version "+GhuunVersion+"**");
 });
