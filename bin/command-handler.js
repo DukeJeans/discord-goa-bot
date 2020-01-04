@@ -116,7 +116,7 @@ function rateCommand(message,strToRate){
 }
 
 function sendNudes(message) {
-    var randomToken = utilities.getRandomInt(6);
+    var randomToken = TOOLS.getRandomInt(6);
 
     switch(randomToken){
         case 0:  message.channel.send(MEDIA.ghuun1); break;
