@@ -6,7 +6,7 @@ const CLIENT          = new DISCORD.Client();
 
 CLIENT.login(TOKEN.key);
 
-GhuunVersion = "2.5";
+GhuunVersion = "3.0";
 
 CLIENT.on("guildMemberAdd", member => {
     greetMember(member);

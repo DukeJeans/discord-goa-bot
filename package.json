@@ -1,6 +1,6 @@
 {
   "name": "discord-goa-bot",
-  "version": "2.5.0",
+  "version": "3.0.0",
   "description": "Discord server bot for Guardians of Azeroth discord server under the guise of *G'huun, the Omnipotent*.",
   "main": "index.js",
   "dependencies": {
