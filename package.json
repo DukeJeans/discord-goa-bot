@@ -4,7 +4,8 @@
   "description": "Discord server bot for Guardians of Azeroth discord server under the guise of *G'huun, the Omnipotent*.",
   "main": "index.js",
   "dependencies": {
-    "discord.js": "^11.5.1"
+    "discord.js": "^11.5.1",
+    "mongodb": "^3.4.1"
   },
   "devDependencies": {},
   "scripts": {
