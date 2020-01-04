@@ -6,6 +6,10 @@ const CLIENT          = new DISCORD.Client();
 
 CLIENT.login(TOKEN.key);
 
+GENERAL_CHANNEL     = null;
+MULTIPLAYER_CHANNEL = null;
+DEBUG_CHANNEL       = null;
+
 GhuunVersion = "3.0";
 
 CLIENT.on("guildMemberAdd", member => {
@@ -74,9 +78,9 @@ function setBotPresence() {
 
 CLIENT.on('ready', () => { //G'huun Boot Sequence
     console.log("G'huun startup successful!");
-    const GENERAL_CHANNEL     = CLIENT.channels.get('317370095024209920');
-    const DEBUG_CHANNEL       = CLIENT.channels.get('606131458549219328');
-    const MULTIPLAYER_CHANNEL = CLIENT.channels.get('540582116832837632');
+    GENERAL_CHANNEL     = CLIENT.channels.get('317370095024209920');
+    DEBUG_CHANNEL       = CLIENT.channels.get('606131458549219328');
+    MULTIPLAYER_CHANNEL = CLIENT.channels.get('540582116832837632');
     console.log('Channels loaded.');
     setBotPresence();
     GENERAL_CHANNEL.send("**G'huun Online: Version "+GhuunVersion+"**");

@@ -1,5 +1,7 @@
-const MEDIA = require('./media-service.js');
-const TOOLS = require('./bot-functions');
+const MEDIA   = require('./media-service.js');
+const TOOLS   = require('./bot-functions');
+const DISCORD = require('discord.js');
+const CLIENT  = new DISCORD.Client();
 
 exports.processCommand = function(message) {
     var isCommand    = (message.content.startsWith("g!"));
@@ -78,9 +80,9 @@ function emojiCommand (message){
 
 function multiplayerHelp(message) {
     console.log(message.member.displayName + " has used g!mphelp");
-    multiplayerChannel.send("Use `g!multiplayer` to join the @Multiplayer role for pings related to multiplayer games.")
-    multiplayerChannel.send("Use `g!mplobby` create a multiplayer game and have it pinned to the channel. Please use this format: `g!mplobby (DAY) (dd/mm) (TIME in GMT)`.")
-    multiplayerChannel.fetchMessages({ limit: 1 })
+    MULTIPLAYER_CHANNEL.send("Use `g!multiplayer` to join the @Multiplayer role for pings related to multiplayer games.")
+    MULTIPLAYER_CHANNEL.send("Use `g!mplobby` create a multiplayer game and have it pinned to the channel. Please use this format: `g!mplobby (DAY) (dd/mm) (TIME in GMT)`.")
+    MULTIPLAYER_CHANNEL.fetchMessages({ limit: 1 })
 }
 
 function multiplayerCommand (message){
@@ -101,7 +103,7 @@ function lobbyCommand(message,arguments) {
 
     var mplobbyMessage = ":game_die: <@&541061831045677095>, " + message.member.displayName + " has scheduled a game for " + arguments[0]+ ", " + arguments[1] + " at " + arguments[2]+ " GMT. React with <:ghuun:535311429033787403> if you plan to join. :game_die:";
     
-    multiplayerChannel.send(mplobbyMessage).then(message => {
+    MULTIPLAYER_CHANNEL.send(mplobbyMessage).then(message => {
         message.react(message.guild.emojis.get('535311429033787403'))
         message.pin();
     })
@@ -142,7 +144,7 @@ function askSoon (message) {
 
 function speakCommand (message,substring) {
     message.channel.send(substring);
-    debugChannel.send(message.member.displayName+" told G'huun to say \""+
+    DEBUG_CHANNEL.send(message.member.displayName+" told G'huun to say \""+
         substring+"\".");
     message.delete();
 }
