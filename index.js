@@ -2,6 +2,7 @@ const DISCORD         = require('discord.js');
 const TOOLS           = require('./bin/bot-functions');
 const TOKEN           = require('./bin/token');
 const COMMAND_HANDLER = require('./bin/command-handler')
+const MEDIA           = require('./bin/media-service');
 const CLIENT          = new DISCORD.Client();
 
 CLIENT.login(TOKEN.key);
@@ -10,7 +11,7 @@ GENERAL_CHANNEL     = null;
 MULTIPLAYER_CHANNEL = null;
 DEBUG_CHANNEL       = null;
 
-GhuunVersion = "3.0";
+GhuunVersion = "3.0.1";
 
 CLIENT.on("guildMemberAdd", member => {
     greetMember(member);
@@ -40,15 +41,15 @@ function greetMember(member) {
     
     switch(randomToken){
         case 0:  GENERAL_CHANNEL.send(`<:tortle:604685683285819402> A new turtle, ${member.user}, has made it to the Discord! <:tortle:604685683285819402>`);
-                 GENERAL_CHANNEL.send(media.turtleVideo); break;
+                 GENERAL_CHANNEL.send(MEDIA.turtleVideo); break;
         case 1:  GENERAL_CHANNEL.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
-                 GENERAL_CHANNEL.send(media.wellMet); break;
+                 GENERAL_CHANNEL.send(MEDIA.wellMet); break;
         case 2:  GENERAL_CHANNEL.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq. Another one :point_up: has made it to the Discord.`)
-                 GENERAL_CHANNEL.send(media.khalid); break;
+                 GENERAL_CHANNEL.send(MEDIA.khalid); break;
         case 3:  GENERAL_CHANNEL.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
-                 GENERAL_CHANNEL.send(media.knightVideo); break;
+                 GENERAL_CHANNEL.send(MEDIA.knightVideo); break;
         default: GENERAL_CHANNEL.send(`<:whip:562757939765575705> ${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. <:whip:562757939765575705>`)
-                 GENERAL_CHANNEL.send(media.whip); break;
+                 GENERAL_CHANNEL.send(MEDIA.whip); break;
     }
 }
 
