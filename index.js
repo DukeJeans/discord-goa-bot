@@ -48,7 +48,7 @@ function greetMember(member) {
                  GENERAL_CHANNEL.send(MEDIA.khalid); break;
         case 3:  GENERAL_CHANNEL.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
                  GENERAL_CHANNEL.send(MEDIA.knightVideo); break;
-        case 4:  GENERAL_CHANNEL.send(:cthun: `${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq. Your heart will explode. :cthun:`)
+        case 4:  GENERAL_CHANNEL.send(`:cthun: ${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq. Your heart will explode. :cthun:`)
                  GENERAL_CHANNEL.send(MEDIA.watching); break;
         case 5:  GENERAL_CHANNEL.send(`:bath: ${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq. Put your feet up and stay a while. :foot:`)
                  GENERAL_CHANNEL.send(MEDIA.geralt); break;
