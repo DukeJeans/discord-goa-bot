@@ -11,7 +11,7 @@ GENERAL_CHANNEL     = null;
 MULTIPLAYER_CHANNEL = null;
 DEBUG_CHANNEL       = null;
 
-GhuunVersion = "3.0.1";
+GhuunVersion = "3.1.0";
 
 CLIENT.on("guildMemberAdd", member => {
     greetMember(member);
@@ -37,7 +37,7 @@ function consumeMember(member) {
 function greetMember(member) {
     guild = member.guild;
 
-    var randomToken = TOOLS.getRandomInt(5);
+    var randomToken = TOOLS.getRandomInt(7);
     
     switch(randomToken){
         case 0:  GENERAL_CHANNEL.send(`<:tortle:604685683285819402> A new turtle, ${member.user}, has made it to the Discord! <:tortle:604685683285819402>`);
@@ -48,6 +48,10 @@ function greetMember(member) {
                  GENERAL_CHANNEL.send(MEDIA.khalid); break;
         case 3:  GENERAL_CHANNEL.send(`${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq.`)
                  GENERAL_CHANNEL.send(MEDIA.knightVideo); break;
+        case 4:  GENERAL_CHANNEL.send(:cthun: `${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq. Your heart will explode. :cthun:`)
+                 GENERAL_CHANNEL.send(MEDIA.watching); break;
+        case 5:  GENERAL_CHANNEL.send(`:bath: ${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. Ag puul skshgn: on'ma yeh'glu zuq. Put your feet up and stay a while. :foot:`)
+                 GENERAL_CHANNEL.send(MEDIA.geralt); break;
         default: GENERAL_CHANNEL.send(`<:whip:562757939765575705> ${member.user}, gul'kafh an'shel. Yoq'al shn ky ag nuul. <:whip:562757939765575705>`)
                  GENERAL_CHANNEL.send(MEDIA.whip); break;
     }

@@ -11,3 +11,5 @@ exports.ghuun3      = new Discord.Attachment('./media/Ghuun3.png');
 exports.ghuun4      = new Discord.Attachment('./media/Ghuun4.png');
 exports.ghuun5      = new Discord.Attachment('./media/Ghuun5.png');
 exports.ghuun6      = new Discord.Attachment('./media/Ghuun6.png');
+exports.geralt      = new Discord.Attachment('./media/geralt.png');
+exports.watching    = new Discord.Attachment('./media/watching.png');
